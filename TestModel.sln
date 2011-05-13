@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestModel", "TestModel\TestModel.csproj", "{0C2087A1-2460-496F-BBF1-966958C53BAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWCFDataService", "TestWCFDataService\TestWCFDataService.csproj", "{03744A00-3C56-4238-9677-3416C0947C51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C2087A1-2460-496F-BBF1-966958C53BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C2087A1-2460-496F-BBF1-966958C53BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C2087A1-2460-496F-BBF1-966958C53BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C2087A1-2460-496F-BBF1-966958C53BAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03744A00-3C56-4238-9677-3416C0947C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03744A00-3C56-4238-9677-3416C0947C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03744A00-3C56-4238-9677-3416C0947C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03744A00-3C56-4238-9677-3416C0947C51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

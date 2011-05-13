@@ -1,0 +1,23 @@
+<Configuration>
+  <CoverageFilters>
+    <AllowFilters>
+      <Filter>
+        <ClassFilter>*</ClassFilter>
+        <FunctionFilter>*</FunctionFilter>
+        <ModuleFilter>*</ModuleFilter>
+      </Filter>
+    </AllowFilters>
+    <DenyFilters>
+      <Filter>
+        <ClassFilter>iSOFT.UDM1.Extractor.FDB.UnitTests.*</ClassFilter>
+        <FunctionFilter>*</FunctionFilter>
+        <ModuleFilter>*</ModuleFilter>
+      </Filter>
+      <Filter>
+        <ClassFilter>UDMCDS.Tests.*</ClassFilter>
+        <FunctionFilter>*</FunctionFilter>
+        <ModuleFilter>*</ModuleFilter>
+      </Filter>
+    </DenyFilters>
+  </CoverageFilters>
+</Configuration>

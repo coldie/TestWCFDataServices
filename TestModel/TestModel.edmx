@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TestModelStoreContainer">
+    <EntitySet Name="Gentlemen" EntityType="TestModel.Store.Gentlemen" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Towns" EntityType="TestModel.Store.Towns" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ladies" EntityType="TestModel.Store.Ladies" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="GentlemanLady" Association="TestModel.Store.GentlemanLady">
+      <End Role="Gentleman" EntitySet="Gentlemen" />
+      <End Role="Lady" EntitySet="Ladies" />
+    </AssociationSet>
+    <AssociationSet Name="PostcodeLady" Association="TestModel.Store.TownLady">
+      <End Role="Town" EntitySet="Towns" />
+      <End Role="Lady" EntitySet="Ladies" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Gentlemen">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Towns">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="nvarchar(max)" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ladies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gentleman_Id" Type="int" Nullable="false" />
+    <Property Name="Town_Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="GentlemanLady">
+    <End Role="Gentleman" Type="TestModel.Store.Gentlemen" Multiplicity="1" />
+    <End Role="Lady" Type="TestModel.Store.Ladies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gentleman">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lady">
+        <PropertyRef Name="Gentleman_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TownLady">
+    <End Role="Town" Type="TestModel.Store.Towns" Multiplicity="1" />
+    <End Role="Lady" Type="TestModel.Store.Ladies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Town">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Lady">
+        <PropertyRef Name="Town_Name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TestModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="TestModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gentlemen" EntityType="TestModel.Gentleman" />
+          <EntitySet Name="Towns" EntityType="TestModel.Town" />
+          <EntitySet Name="Ladies" EntityType="TestModel.Lady" />
+          <AssociationSet Name="GentlemanLady" Association="TestModel.GentlemanLady">
+            <End Role="Gentleman" EntitySet="Gentlemen" />
+            <End Role="Lady" EntitySet="Ladies" />
+          </AssociationSet>
+          <AssociationSet Name="PostcodeLady" Association="TestModel.TownLady">
+            <End Role="Town" EntitySet="Towns" />
+            <End Role="Lady" EntitySet="Ladies" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Gentleman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Ladies" Relationship="TestModel.GentlemanLady" FromRole="Gentleman" ToRole="Lady" />
+        </EntityType>
+        <EntityType Name="Town">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="String" Name="Name" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Ladies" Relationship="TestModel.TownLady" FromRole="Town" ToRole="Lady" />
+        </EntityType>
+        <EntityType Name="Lady">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Gentleman" Relationship="TestModel.GentlemanLady" FromRole="Lady" ToRole="Gentleman" />
+          <NavigationProperty Name="Town" Relationship="TestModel.TownLady" FromRole="Lady" ToRole="Town" />
+        </EntityType>
+        <Association Name="GentlemanLady">
+          <End Type="TestModel.Gentleman" Role="Gentleman" Multiplicity="1" />
+          <End Type="TestModel.Lady" Role="Lady" Multiplicity="*" />
+        </Association>
+        <Association Name="TownLady">
+          <End Type="TestModel.Town" Role="Town" Multiplicity="1" />
+          <End Type="TestModel.Lady" Role="Lady" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestModelContainer">
+    <EntitySetMapping Name="Gentlemen">
+      <EntityTypeMapping TypeName="IsTypeOf(TestModel.Gentleman)">
+        <MappingFragment StoreEntitySet="Gentlemen">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Towns">
+      <EntityTypeMapping TypeName="IsTypeOf(TestModel.Town)">
+        <MappingFragment StoreEntitySet="Towns">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ladies">
+      <EntityTypeMapping TypeName="IsTypeOf(TestModel.Lady)">
+        <MappingFragment StoreEntitySet="Ladies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GentlemanLady" TypeName="TestModel.GentlemanLady" StoreEntitySet="Ladies">
+      <EndProperty Name="Gentleman">
+        <ScalarProperty Name="Id" ColumnName="Gentleman_Id" />
+      </EndProperty>
+      <EndProperty Name="Lady">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PostcodeLady" TypeName="TestModel.TownLady" StoreEntitySet="Ladies">
+      <EndProperty Name="Town">
+        <ScalarProperty Name="Name" ColumnName="Town_Name" />
+      </EndProperty>
+      <EndProperty Name="Lady">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="TestModel" ZoomLevel="98" >
+        <EntityTypeShape EntityType="TestModel.Gentleman" Width="1.5" PointX="6.875" PointY="2.625" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="TestModel.Town" Width="1.5" PointX="2.625" PointY="2.625" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="TestModel.Lady" Width="1.5" PointX="4.75" PointY="2.625" Height="1.7879850260416657" />
+        <AssociationConnector Association="TestModel.GentlemanLady">
+          <ConnectorPoint PointX="6.875" PointY="3.422841796875" />
+          <ConnectorPoint PointX="6.25" PointY="3.422841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="TestModel.TownLady">
+          <ConnectorPoint PointX="4.125" PointY="3.3266910807291667" />
+          <ConnectorPoint PointX="4.75" PointY="3.3266910807291667" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
